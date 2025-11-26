@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Client - Navigator Assist{% endblock %}
+
+{% block content %}
+<a href="/clients/" class="back-link">← Back to Clients</a>
+
+<h1>Add Client</h1>
+
+{% if form.non_field_errors %}
+<div style="background: #ffebee; color: #d32f2f; padding: 12px; border-radius: 4px; margin-bottom: 16px;">
+    {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="card">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label>{{ form.full_name.label }}</label>
+            {{ form.full_name }}
+            {% if form.full_name.errors %}<small style="color: #d32f2f;">{{ form.full_name.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.email.label }}</label>
+            {{ form.email }}
+            {% if form.email.errors %}<small style="color: #d32f2f;">{{ form.email.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.phone.label }}</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}<small style="color: #d32f2f;">{{ form.phone.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.company.label }}</label>
+            {{ form.company }}
+            {% if form.company.errors %}<small style="color: #d32f2f;">{{ form.company.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.product.label }}</label>
+            {{ form.product }}
+            {% if form.product.errors %}<small style="color: #d32f2f;">{{ form.product.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.product_description.label }}</label>
+            {{ form.product_description }}
+            {% if form.product_description.errors %}<small style="color: #d32f2f;">{{ form.product_description.errors }}</small>{% endif %}
+        </div>
+        <div class="form-group">
+            <label>{{ form.order_status.label }}</label>
+            <div style="margin: 12px 0; padding: 12px; background: #f5f5f5; border-radius: 4px;">
+                {{ form.order_status }}
+            </div>
+            {% if form.order_status.errors %}<small style="color: #d32f2f;">{{ form.order_status.errors }}</small>{% endif %}
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary" style="flex: 1;">Save Client</button>
+            <a href="/clients/" class="btn btn-secondary" style="flex: 1; text-align: center;">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    input[type="radio"] {
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    label.radio-label {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

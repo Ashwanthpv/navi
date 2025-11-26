@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks - Navigator Assist{% endblock %}
+
+{% block content %}
+<h1>Tasks</h1>
+
+<div class="btn-group">
+    <a href="/tasks/add/" class="btn btn-primary" style="flex: 1;">Add Task</a>
+    <a href="/tasks/download/" class="btn btn-success" style="flex: 1;">Download</a>
+</div>
+
+{% if tasks %}
+<div style="margin-top: 16px;">
+    {% for task in tasks %}
+    <div class="card">
+        <h3>{{ task.title }}</h3>
+        <p><strong>Client:</strong> {{ task.client }}</p>
+        <p><strong>Due Date:</strong> {{ task.due_date|date:"M d, Y" }}</p>
+        <p><strong>Priority:</strong> <span class="badge" style="background: {% if task.priority == 'High' %}#ffebee; color: #d32f2f{% elif task.priority == 'Medium' %}#fff3e0; color: #f57c00{% else %}#e8f5e9; color: #388e3c{% endif %}">{{ task.priority }}</span></p>
+        <p><strong>Status:</strong> {% if task.completed %}<span class="badge badge-won">Done</span>{% else %}<span class="badge badge-open">Pending</span>{% endif %}</p>
+        <div class="btn-group">
+            <a href="/tasks/edit/{{ task.id }}/" class="btn btn-secondary" style="flex: 1;">Edit</a>
+            <a href="/tasks/delete/{{ task.id }}/" class="btn btn-danger" style="flex: 1;">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+    <p>No tasks yet.</p>
+    <a href="/tasks/add/" class="btn btn-primary" style="margin-top: 12px;">Add your first task</a>
+</div>
+{% endif %}
+{% endblock %}
