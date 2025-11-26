@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Deals - Navigator Assist{% endblock %}
+
+{% block content %}
+<h1>Deals</h1>
+
+<div class="btn-group">
+    <a href="/deals/add/" class="btn btn-primary" style="flex: 1;">Add Deal</a>
+    <a href="/deals/download/" class="btn btn-success" style="flex: 1;">Download</a>
+</div>
+
+{% if deals %}
+<div style="margin-top: 16px;">
+    {% for deal in deals %}
+    <div class="card">
+        <h3>{{ deal.name }}</h3>
+        <p><strong>Client:</strong> {{ deal.client }}</p>
+        <p><strong>Value:</strong> ${{ deal.value }}</p>
+        <p><strong>Stage:</strong> <span class="badge {% if deal.stage == 'won' %}badge-won{% elif deal.stage == 'lost' %}badge-lost{% else %}badge-open{% endif %}">{{ deal.get_stage_display }}</span></p>
+        <div class="btn-group">
+            <a href="/deals/edit/{{ deal.id }}/" class="btn btn-secondary" style="flex: 1;">Edit</a>
+            <a href="/deals/delete/{{ deal.id }}/" class="btn btn-danger" style="flex: 1;">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+    <p>No deals yet.</p>
+    <a href="/deals/add/" class="btn btn-primary" style="margin-top: 12px;">Add your first deal</a>
+</div>
+{% endif %}
+{% endblock %}

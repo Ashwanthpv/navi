@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Clients - Navigator Assist{% endblock %}
+
+{% block content %}
+<h1>Clients</h1>
+
+<div class="btn-group">
+    <a href="/clients/add/" class="btn btn-primary" style="flex: 1;">Add Client</a>
+    <a href="/clients/download/" class="btn btn-success" style="flex: 1;">Download</a>
+</div>
+
+{% if clients %}
+<div style="margin-top: 16px;">
+    {% for client in clients %}
+    <div class="card">
+        <h3>{{ client.full_name }}</h3>
+        <p><strong>Email:</strong> {{ client.email }}</p>
+        <p><strong>Phone:</strong> {{ client.phone }}</p>
+        {% if client.company %}<p><strong>Company:</strong> {{ client.company }}</p>{% endif %}
+        <p><strong>Value:</strong> ${{ client.client_value }}</p>
+        <div class="btn-group">
+            <a href="/clients/edit/{{ client.id }}/" class="btn btn-secondary" style="flex: 1;">Edit</a>
+            <a href="/clients/delete/{{ client.id }}/" class="btn btn-danger" style="flex: 1;">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+    <p>No clients yet.</p>
+    <a href="/clients/add/" class="btn btn-primary" style="margin-top: 12px;">Add your first client</a>
+</div>
+{% endif %}
+{% endblock %}

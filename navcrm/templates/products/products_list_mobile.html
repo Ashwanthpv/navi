@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Products - Navigator Assist{% endblock %}
+
+{% block content %}
+<h1>Products</h1>
+
+<div class="btn-group">
+    <a href="/products/add/" class="btn btn-primary" style="flex: 1;">Add Product</a>
+    <a href="/products/download/" class="btn btn-success" style="flex: 1;">Download</a>
+</div>
+
+{% if products %}
+<div style="margin-top: 16px;">
+    {% for product in products %}
+    <div class="card">
+        <h3>{{ product.name }}</h3>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        {% if product.description %}<p><strong>Description:</strong> {{ product.description }}</p>{% endif %}
+        <div class="btn-group">
+            <a href="/products/edit/{{ product.id }}/" class="btn btn-secondary" style="flex: 1;">Edit</a>
+            <a href="/products/delete/{{ product.id }}/" class="btn btn-danger" style="flex: 1;">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+    <p>No products yet.</p>
+    <a href="/products/add/" class="btn btn-primary" style="margin-top: 12px;">Add your first product</a>
+</div>
+{% endif %}
+{% endblock %}
